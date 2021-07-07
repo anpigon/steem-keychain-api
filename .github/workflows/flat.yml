@@ -27,12 +27,12 @@ jobs:
         uses: githubocto/flat@v3
         with:
           http_url: https://api.bittrex.com/api/v1.1/public/getmarketsummaries
-          downloaded_filename: public/bittrex_marketsummaries.json
+          downloaded_filename: flat/bittrex_marketsummaries.json
           postprocess: postprocess.js
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./flat
           # destination_dir: price
