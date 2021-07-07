@@ -1,0 +1,12 @@
+{
+  "name": "steem-keychain-api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "flat": "deno run -q --allow-read --allow-write --allow-run --allow-net --allow-env --unstable postprocess.js",
+    "act": "act workflow_dispatch --secret-file .secrets"
+  },
+  "keywords": [],
+  "author": "anpigon",
+  "license": "ISC"
+}
