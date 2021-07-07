@@ -27,3 +27,22 @@ async function coinmarketcap() {
   await writeJSON("flat/coinmarketcap_price.json", data);
 }
 await coinmarketcap();
+
+async function steemAPINodeStatus() {
+  const rpcList = [
+    'https://api.steemit.com',
+    'https://api.steemitdev.com',
+    'https://api.justyy.com',
+    'https://e51ewpb9dk.execute-api',
+    'https://api.steemyy.com',
+    'https://api.steemzzang.com',
+    'https://x68bp3mesd.execute-api',
+    'https://cn.steems.top',
+    'https://justyy.azurewebsites.net',
+    'https://steem.justyy.workers',
+    'https://steem.ecosynthesizer.com',
+    'https://steem.61bts.com',
+    'https://api.steem.buzz',
+    'https://api.steem.fans',
+  ]
+}
