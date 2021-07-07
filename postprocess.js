@@ -5,7 +5,7 @@ async function bittrex() {
   const filename = Deno.args[0];
   const data = await readJSON(filename);
   const newData = data.result.filter((item) => {
-    return ["USD-BTC", "USD-USDT", "USDT-STEEM", "BTC-STEEM", "BTC-SBD"].includes(
+    return ["USD-BTC", "USD-USDT", "USDT-STEEM", "BTC-STEEM", "BTC-SBD", "USDT-TRX", "USD-TRX", "BTC-TRX"].includes(
       item.MarketName
     );
   });
