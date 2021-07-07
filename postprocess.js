@@ -6,7 +6,7 @@ const newData = data.result.filter(item => {
   return (["USD-BTC", "USD-USDT", "USDT-STEEM", "BTC-STEEM", "BTC-SBD"].includes(item.MarketName));
 })
 
-const newfile = 'price.json'
+const newfile = 'bittrex_price.json'
 await writeJSON(newfile, newData)
 
 // https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=STEEM,SBD
