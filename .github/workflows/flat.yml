@@ -5,6 +5,8 @@ on:
       - .github/workflows/flat.yml
       - postprocess.js
   workflow_dispatch: null
+  schedule:
+    - cron: '*/10 * * * *' # At every 10th minute.
 jobs:
   scheduled:
     runs-on: ubuntu-latest
