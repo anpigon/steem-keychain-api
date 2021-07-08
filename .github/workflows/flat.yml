@@ -21,10 +21,10 @@ jobs:
           http_url: https://api.bittrex.com/api/v1.1/public/getmarketsummaries
           downloaded_filename: flat/bittrex_marketsummaries.json
           postprocess: postprocess.js
+        env:
+          COINMARKETCAP_API_KEY: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./flat
-        env:
-          COINMARKETCAP_API_KEY: ${{ secrets.GITHUB_TOKEN }}
