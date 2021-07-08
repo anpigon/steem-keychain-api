@@ -26,12 +26,36 @@ async function coinmarketcap() {
     "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=STEEM,SBD,TRX,BTC,USDT",
     {
       headers: {
-        "X-CMC_PRO_API_KEY": Deno.env.COINMARKETCAP_API_KEY,
+        "X-CMC_PRO_API_KEY": Deno.env.get("COINMARKETCAP_API_KEY"),
       },
     }
   );
   const { data } = await response.json();
   await writeJSON("flat/coinmarketcap_price.json", data);
+
+  const price = {
+    btc: {
+      Usd: data["BTC"]["price"],
+      DailyUsd: data["BTC"]["percent_change_24h"],
+      DailyVolume: data["BTC"]["volume_24h"],
+    },
+    steem: {
+      Usd: data["STEEM"]["price"],
+      DailyUsd: data["STEEM"]["percent_change_24h"],
+      DailyVolume: data["STEEM"]["volume_24h"],
+    },
+    sbd: {
+      Usd: data["SBD"]["price"],
+      DailyUsd: data["SBD"]["percent_change_24h"],
+      DailyVolume: data["SBD"]["volume_24h"],
+    },
+    trx: {
+      Usd: data["TRX"]["price"],
+      DailyUsd: data["TRX"]["percent_change_24h"],
+      DailyVolume: data["TRX"]["volume_24h"],
+    },
+  };
+  await writeJSON("flat/price.json", price);
 }
 await coinmarketcap();
 
@@ -76,4 +100,4 @@ async function steemAPINodeStatus() {
   await writeJSON("flat/rpc_default.json", rpc_default);
   await writeJSON("flat/rpc_fastest.json", rpc_fastest);
 }
-steemAPINodeStatus();
+await steemAPINodeStatus();

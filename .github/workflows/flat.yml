@@ -6,7 +6,7 @@ on:
       - postprocess.js
   workflow_dispatch: null
   schedule:
-    - cron: '*/10 * * * *' # At every 10th minute.
+    - cron: "*/10 * * * *"
 jobs:
   scheduled:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
           downloaded_filename: flat/bittrex_marketsummaries.json
           postprocess: postprocess.js
         env:
-          COINMARKETCAP_API_KEY: ${{ secrets.GITHUB_TOKEN }}
+          COINMARKETCAP_API_KEY: ${{ secrets.COINMARKETCAP_API_KEY }}
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
