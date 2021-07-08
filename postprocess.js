@@ -35,24 +35,24 @@ async function coinmarketcap() {
 
   const price = {
     btc: {
-      Usd: data["BTC"]["price"],
-      DailyUsd: data["BTC"]["percent_change_24h"],
-      DailyVolume: data["BTC"]["volume_24h"],
+      Usd: data["BTC"]['quote']['USD']["price"],
+      DailyUsd: data["BTC"]['quote']['USD']["percent_change_24h"],
+      DailyVolume: data["BTC"]['quote']['USD']["volume_24h"],
     },
     steem: {
-      Usd: data["STEEM"]["price"],
-      DailyUsd: data["STEEM"]["percent_change_24h"],
-      DailyVolume: data["STEEM"]["volume_24h"],
+      Usd: data["STEEM"]['quote']['USD']["price"],
+      DailyUsd: data["STEEM"]['quote']['USD']["percent_change_24h"],
+      DailyVolume: data["STEEM"]['quote']['USD']["volume_24h"],
     },
     sbd: {
-      Usd: data["SBD"]["price"],
-      DailyUsd: data["SBD"]["percent_change_24h"],
-      DailyVolume: data["SBD"]["volume_24h"],
+      Usd: data["SBD"]['quote']['USD']["price"],
+      DailyUsd: data["SBD"]['quote']['USD']["percent_change_24h"],
+      DailyVolume: data["SBD"]['quote']['USD']["volume_24h"],
     },
     trx: {
-      Usd: data["TRX"]["price"],
-      DailyUsd: data["TRX"]["percent_change_24h"],
-      DailyVolume: data["TRX"]["volume_24h"],
+      Usd: data["TRX"]['quote']['USD']["price"],
+      DailyUsd: data["TRX"]['quote']['USD']["percent_change_24h"],
+      DailyVolume: data["TRX"]['quote']['USD']["volume_24h"],
     },
   };
   await writeJSON("flat/price.json", price);
