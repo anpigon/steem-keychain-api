@@ -3,7 +3,7 @@ import { readJSON, writeJSON } from "https://deno.land/x/flat/mod.ts";
 /// bittrex
 async function bittrex() {
   const filename = Deno.args[0];
-  const data = await readJSON(filename);
+  const data = await readJSON(filename).result;
   
   function calculateValue(market, btc) {
     const { Bid, PrevDay } = market;
