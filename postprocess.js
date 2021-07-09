@@ -3,7 +3,7 @@ import { readJSON, writeJSON } from "https://deno.land/x/flat/mod.ts";
 /// bittrex
 async function bittrex() {
   const filename = Deno.args[0];
-  const data = await readJSON(filename).result;
+  const data = await readJSON(filename);
   
   function calculateValue(market, btc) {
     const { Bid, PrevDay } = market;
@@ -20,12 +20,12 @@ async function bittrex() {
     };
   }
 
-  const btc = data.find((item) => item.MarketName === "USD-BTC");
-  const steem = data.find((item) => item.MarketName === "BTC-STEEM");
-  const sbd = data.find((item) => item.MarketName === "BTC-SBD");
-  const trx = data.find((item) => item.MarketName === "BTC-TRX");
-  const hive = data.find((item) => item.MarketName === "BTC-HIVE");
-  const hbd = data.find((item) => item.MarketName === "BTC-HBD");
+  const btc = data.result.find((item) => item.MarketName === "USD-BTC");
+  const steem = data.result.find((item) => item.MarketName === "BTC-STEEM");
+  const sbd = data.result.find((item) => item.MarketName === "BTC-SBD");
+  const trx = data.result.find((item) => item.MarketName === "BTC-TRX");
+  const hive = data.result.find((item) => item.MarketName === "BTC-HIVE");
+  const hbd = data.result.find((item) => item.MarketName === "BTC-HBD");
 
   const newData = {
     btc: {
