@@ -4,18 +4,42 @@ import { readJSON, writeJSON } from "https://deno.land/x/flat/mod.ts";
 async function bittrex() {
   const filename = Deno.args[0];
   const data = await readJSON(filename);
-  const newData = data.result.filter((item) => {
-    return [
-      "USD-BTC",
-      "USD-USDT",
-      "USDT-STEEM",
-      "BTC-STEEM",
-      "BTC-SBD",
-      "USDT-TRX",
-      "USD-TRX",
-      "BTC-TRX",
-    ].includes(item.MarketName);
-  });
+  
+  function calculateValue(market, btc) {
+    const { Bid, PrevDay } = market;
+    const Daily = ((Bid - PrevDay) / PrevDay) * 100;
+    const PrevDayUsd = btc.PrevDay * PrevDay;
+    const Usd = Bid * btc.Bid;
+    const DailyUsd = ((Usd - PrevDayUsd) / PrevDayUsd) * 100;
+    return {
+      Bid,
+      PrevDay,
+      Daily: Daily.toFixed(2),
+      Usd: Usd.toFixed(2),
+      DailyUsd: DailyUsd.toFixed(2),
+    };
+  }
+
+  const btc = data.find((item) => item.MarketName === "USD-BTC");
+  const steem = data.find((item) => item.MarketName === "BTC-STEEM");
+  const sbd = data.find((item) => item.MarketName === "BTC-SBD");
+  const trx = data.find((item) => item.MarketName === "BTC-TRX");
+  const hive = data.find((item) => item.MarketName === "BTC-HIVE");
+  const hbd = data.find((item) => item.MarketName === "BTC-HBD");
+
+  const newData = {
+    btc: {
+      Bid: btc.Bid,
+      PrevDay: btc.PrevDay,
+      Daily: (((btc.Bid - btc.PrevDay) / btc.PrevDay) * 100).toFixed(2),
+    },
+    steem: calculateValue(steem, btc),
+    sbd: calculateValue(steem, sbd),
+    trx: calculateValue(steem, trx),
+    hive: calculateValue(hive, btc),
+    hbd: calculateValue(hbd, btc),
+  };
+  
   await writeJSON("flat/bittrex_price.json", newData);
 }
 await bittrex();
@@ -59,6 +83,7 @@ async function coinmarketcap() {
 }
 await coinmarketcap();
 
+/// steemAPINodeStatus
 async function steemAPINodeStatus() {
   const rpcList = [
     "https://api.steemit.com",
@@ -101,3 +126,16 @@ async function steemAPINodeStatus() {
   await writeJSON("flat/rpc_fastest.json", rpc_fastest);
 }
 await steemAPINodeStatus();
+
+/// phishingAccounts
+async function phishingAccounts() {
+  const response = await fetch(
+    "https://raw.githubusercontent.com/steemit/condenser/master/src/app/utils/BadActorList.js"
+  ).then((r) => r.text());
+  const phishingAccounts = response
+    .split("`")[1]
+    .split("\n")
+    .filter((e) => e);
+  await writeJSON("flat/phishing_accounts.json", phishingAccounts);
+}
+await phishingAccounts();
