@@ -34,8 +34,8 @@ async function bittrex() {
       Daily: (((btc.Bid - btc.PrevDay) / btc.PrevDay) * 100).toFixed(2),
     },
     steem: calculateValue(steem, btc),
-    sbd: calculateValue(steem, sbd),
-    trx: calculateValue(steem, trx),
+    sbd: calculateValue(sbd, btc),
+    trx: calculateValue(trx, btc),
     hive: calculateValue(hive, btc),
     hbd: calculateValue(hbd, btc),
   };
