@@ -6,7 +6,7 @@ on:
       - postprocess.js
   workflow_dispatch: null
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/30 * * * *"
 jobs:
   scheduled:
     runs-on: ubuntu-latest
